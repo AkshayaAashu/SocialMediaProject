@@ -19,8 +19,6 @@ def signin_required(fn):
     return wrapper
 
 
-
-
 class SignUpView(CreateView):
     model=User
     form_class=SignUpForm
@@ -65,7 +63,6 @@ class IndexView(CreateView,ListView):
     form_class=PostForm
     model=Posts
     context_object_name="posts"
-    
     success_url=reverse_lazy("index")
     def form_valid(self, form):
         form.instance.user=self.request.user
