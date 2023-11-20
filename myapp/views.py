@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
-from django.views.generic import CreateView,View,TemplateView,UpdateView,ListView,DetailView
+from django.views.generic import CreateView,View,TemplateView,UpdateView,ListView,DetailView,FormView
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate,login,logout
@@ -34,14 +34,11 @@ class SignUpView(CreateView):
         return super().form_invalid(form)
 
 
-class SignInView(View):
+class SignInView(FormView):
     model=User
     form_class=SignInForm
     template_name="login.html"
 
-    def get(self,request,*args,**kwargs):
-        form=self.form_class
-        return render(request,self.template_name,{"form":form})
     def post(self,request,*args,**kwargs):
         form=self.form_class(request.POST)
         if form.is_valid():
